@@ -1,0 +1,29 @@
+{
+  "name": "chat-application",
+  "version": "1.0.0",
+  "description": "chat-application",
+  "main": "index.js",
+  "scripts": {
+    "run": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js -e js,css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamm3e3333/chat-application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamm3e3333/chat-application/issues"
+  },
+  "homepage": "https://github.com/jamm3e3333/chat-application#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "socket.io": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

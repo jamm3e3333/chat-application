@@ -4,38 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.png" >
+    <link rel="stylesheet" href="./css/styles.css" >
     <title>Chat App</title>
 </head>
 <body>
-    <h1>Chat App</h1>
-    <div id="messages"></div>
+    <div class="chat">
+        <div class="chat__sidebar">
 
-    <form id="form1">
-        <input name="messageId" placeholder="message..." />
-        <button name="sendMessage">Send</button>
-    </form>
-    <br/>
-    <form id="form2">
-        <input name="messageIdRate" placeholder="0-5" />
-        <button name="btn-rate">Rate</button>
-    </form>
-    <br />
-    <form id="form3">
-        <input name="messageIdEmail" placeholder="email@domain.com" />
-        <button name="btn-email">Send email</button>
-    </form>
-    <br />
-    <button id="btn-loc">Share location</button>
-    <div id="locations"></div>
+        </div>
+        <div class="chat__main">
+            <div id="messages" class="chat__messages"></div>
+
+            <div class="compose">
+                <form id="form1">
+                    <input name="messageId" placeholder="message..." />
+                    <button name="sendMessage">Send</button>
+                </form>
+                <button id="btn-loc">Share location</button>
+            </div>
+        </div>
+    </div>
+
     <script id="message-template" type="text/html">
-        <div>
-            <p>{{createdAt}}: {{message}}</p>
+        <div class="message">
+            <p>
+                <span class="message__name">Some User Name </span>
+                <span class="message__meta">{{createdAt}}:</span>
+            </p>
+            <p>{{message}}</p>
         </div>
     </script>
 
     <script id="location-template" type="text/html">
         <div>
-            <p>{{createdAt}}: <a style="color: inherit; font-weight: bold" href={{location}} target="_blank">Location</p>
+            <p>
+                <span class="message__name">Some User Name </span>
+                <span class="message__meta">{{createdAt}}:</span>
+            </p>
+            <p><a style="color: inherit; font-weight: bold" href={{location}} target="_blank">Location</p>
         </div>
     </script>
 

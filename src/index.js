@@ -3,7 +3,6 @@ const http = require('http');
 const path = require('path');
 const socketio = require('socket.io');
 const filter = require('bad-words');
-const {isEmail} = require('validator');
 const {generateMessage, generateLocMessage} = require('./utils/messages.js');
 
 const app = express();
@@ -37,24 +36,7 @@ io.on('connection', (socket) => {
         io.emit('shareLocation', generateLocMessage(`https://google.com/maps?q=${position.latitude},${position.longitude}`));
         cb();
     })
-
-    socket.on('sendRating',(rate,cb) => {
-        if(isNaN(parseInt(rate)) || parseInt(rate) < 0 || parseInt(rate) > 5){
-            return cb(rate);
-        }
-        io.emit('rating',rate);
-        cb();
-    })
-
-    socket.on('sendEmail', (email,cb) => {
-        if(!isEmail(email)){
-            return cb('Email not valid!');
-        }
-
-        io.emit('email',email);
-        cb();
-    })
-
+    
     socket.on('disconnect', () => {
         io.emit('message',generateMessage('User has left.'));
     })

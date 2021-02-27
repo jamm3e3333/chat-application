@@ -22,7 +22,8 @@
     "bad-words": "^3.0.4",
     "express": "^4.17.1",
     "path": "^0.12.7",
-    "socket.io": "^3.1.1"
+    "socket.io": "^3.1.1",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

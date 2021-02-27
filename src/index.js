@@ -3,6 +3,8 @@ const http = require('http');
 const path = require('path');
 const socketio = require('socket.io');
 const filter = require('bad-words');
+const {isEmail} = require('validator');
+const {generateMessage, generateLocMessage} = require('./utils/messages.js');
 
 const app = express();
 const server = http.createServer(app);
@@ -17,8 +19,8 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New web socket connection.');
 
-    socket.emit('message','Welcome.');
-    socket.broadcast.emit('message','A new user has joined.');
+    socket.emit('message',generateMessage('Welcome'));
+    socket.broadcast.emit('message',generateMessage('New user has joined.'));
 
     socket.on('sendMessage', (msg, cb) => {
         const filt = new filter();
@@ -27,12 +29,12 @@ io.on('connection', (socket) => {
             return cb(msg);
         }
 
-        io.emit('message', msg);
+        io.emit('message', generateMessage(msg));
         cb();
     });
 
     socket.on('shareLocation',(position,cb) => {
-        io.emit('shareLocation', `https://google.com/map?q=${position.latitude},${position.longitude}`);
+        io.emit('shareLocation', generateLocMessage(`https://google.com/maps?q=${position.latitude},${position.longitude}`));
         cb();
     })
 
@@ -44,8 +46,17 @@ io.on('connection', (socket) => {
         cb();
     })
 
+    socket.on('sendEmail', (email,cb) => {
+        if(!isEmail(email)){
+            return cb('Email not valid!');
+        }
+
+        io.emit('email',email);
+        cb();
+    })
+
     socket.on('disconnect', () => {
-        io.emit('message','A user has left.');
+        io.emit('message',generateMessage('User has left.'));
     })
 })
 server.listen(port, () => {

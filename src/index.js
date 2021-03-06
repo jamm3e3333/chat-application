@@ -18,8 +18,11 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New web socket connection.');
 
-    socket.emit('message',generateMessage('Welcome'));
-    socket.broadcast.emit('message',generateMessage('New user has joined.'));
+    socket.on('join', ({username, room }) => {
+        socket.join(room);
+        socket.emit('message', generateMessage('Welcome'));
+        socket.broadcast.to(room).emit('message',generateMessage(`${username} has entered the room.`))
+    })
 
     socket.on('sendMessage', (msg, cb) => {
         const filt = new filter();
